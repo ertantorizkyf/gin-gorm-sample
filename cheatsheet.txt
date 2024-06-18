@@ -1,0 +1,2 @@
+// run compile daemon
+CompileDaemon -command="./gin-gorm-sample"
