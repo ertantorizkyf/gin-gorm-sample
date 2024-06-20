@@ -6,3 +6,5 @@
 
 // run compile daemon
 CompileDaemon -command="./gin-gorm-sample"
+// run migration
+go run migrate/migrate

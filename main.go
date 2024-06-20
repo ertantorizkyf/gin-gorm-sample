@@ -12,13 +12,16 @@ func init() {
 }
 
 func main() {
-	r := gin.Default()
+	router := gin.Default()
 
-	r.GET("/articles", controllers.ArticleIndex)
-	r.GET("/articles/:id", controllers.ArticleDetail)
-	r.POST("/articles", controllers.ArticleCreate)
-	r.PUT("/articles/:id", controllers.ArticleUpdate)
-	r.DELETE("/articles/:id", controllers.ArticleDelete)
+	articles := router.Group("/articles")
+	{
+		articles.GET("", controllers.ArticleIndex)
+		articles.GET(":id", controllers.ArticleDetail)
+		articles.POST("", controllers.ArticleCreate)
+		articles.PUT(":id", controllers.ArticleUpdate)
+		articles.DELETE(":id", controllers.ArticleDelete)
+	}
 
-	r.Run()
+	router.Run()
 }
