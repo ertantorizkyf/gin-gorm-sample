@@ -21,6 +21,12 @@ func main() {
 		articles.POST("", controllers.ArticleCreate)
 		articles.PUT(":id", controllers.ArticleUpdate)
 		articles.DELETE(":id", controllers.ArticleDelete)
+
+		articlesJson := articles.Group("/json")
+		{
+			articlesJson.GET("/structured", controllers.ArticleJsonStructuredIndex)
+			articlesJson.GET("/unstructured", controllers.ArticleJsonUnstructuredIndex)
+		}
 	}
 
 	router.Run()
