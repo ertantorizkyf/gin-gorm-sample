@@ -127,3 +127,9 @@ func Login(c *gin.Context) {
 		"token": token,
 	})
 }
+
+func SampleMiddlewareImpl(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"data": "HELLO WORLD!",
+	})
+}

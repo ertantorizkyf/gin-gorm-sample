@@ -5,6 +5,7 @@ import (
 
 	"github.com/ertantorizkyf/gin-gorm-sample/controllers"
 	"github.com/ertantorizkyf/gin-gorm-sample/initializers"
+	"github.com/ertantorizkyf/gin-gorm-sample/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
@@ -49,6 +50,7 @@ func main() {
 	{
 		userRouter.POST("/register", controllers.Register)
 		userRouter.POST("/login", controllers.Login)
+		userRouter.GET("/sample-middleware-impl", middlewares.AuthorizeUser, controllers.SampleMiddlewareImpl)
 	}
 
 	router.Run()
