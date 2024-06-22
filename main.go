@@ -29,5 +29,11 @@ func main() {
 		}
 	}
 
+	redisRouter := router.Group("/redis")
+	{
+		redisRouter.GET("", controllers.RedisGet)
+		redisRouter.POST("", controllers.RedisSet)
+	}
+
 	router.Run()
 }
