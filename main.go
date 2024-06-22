@@ -14,18 +14,18 @@ func init() {
 func main() {
 	router := gin.Default()
 
-	articles := router.Group("/articles")
+	articlesRouter := router.Group("/articles")
 	{
-		articles.GET("", controllers.ArticleIndex)
-		articles.GET(":id", controllers.ArticleDetail)
-		articles.POST("", controllers.ArticleCreate)
-		articles.PUT(":id", controllers.ArticleUpdate)
-		articles.DELETE(":id", controllers.ArticleDelete)
+		articlesRouter.GET("", controllers.ArticleIndex)
+		articlesRouter.GET(":id", controllers.ArticleDetail)
+		articlesRouter.POST("", controllers.ArticleCreate)
+		articlesRouter.PUT(":id", controllers.ArticleUpdate)
+		articlesRouter.DELETE(":id", controllers.ArticleDelete)
 
-		articlesJson := articles.Group("/json")
+		articlesJsonRouter := articlesRouter.Group("/json")
 		{
-			articlesJson.GET("/structured", controllers.ArticleJsonStructuredIndex)
-			articlesJson.GET("/unstructured", controllers.ArticleJsonUnstructuredIndex)
+			articlesJsonRouter.GET("/structured", controllers.ArticleJsonStructuredIndex)
+			articlesJsonRouter.GET("/unstructured", controllers.ArticleJsonUnstructuredIndex)
 		}
 	}
 
