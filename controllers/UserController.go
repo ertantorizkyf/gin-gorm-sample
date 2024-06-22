@@ -110,7 +110,20 @@ func Login(c *gin.Context) {
 		return
 	}
 
+	// generate jwt
+	token, err := helpers.GenerateToken(user)
+	if err != nil {
+		message := "Something went wrong while generating auth token"
+		log.Printf("[ERR] %s", message)
+		c.JSON(400, gin.H{
+			"message": message,
+		})
+
+		return
+	}
+
 	c.JSON(200, gin.H{
-		"data": "Successfully logged in",
+		"data":  "Successfully logged in",
+		"token": token,
 	})
 }
