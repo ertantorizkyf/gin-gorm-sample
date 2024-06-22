@@ -35,5 +35,11 @@ func main() {
 		redisRouter.POST("", controllers.RedisSet)
 	}
 
+	userRouter := router.Group("/user")
+	{
+		userRouter.POST("/register", controllers.Register)
+		userRouter.POST("/login", controllers.Login)
+	}
+
 	router.Run()
 }
