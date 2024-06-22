@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/ertantorizkyf/gin-gorm-sample/controllers"
 	"github.com/ertantorizkyf/gin-gorm-sample/initializers"
 	"github.com/gin-gonic/gin"
@@ -13,6 +15,14 @@ func init() {
 
 func main() {
 	router := gin.Default()
+
+	router.NoRoute(func(c *gin.Context) {
+		errMethod := c.Request.Method
+		errPath := c.Request.URL.Path
+		errMessage := fmt.Sprintf("Path [%s] %s not found!", errMethod, errPath)
+
+		c.JSON(404, gin.H{"message": errMessage})
+	})
 
 	articlesRouter := router.Group("/articles")
 	{
