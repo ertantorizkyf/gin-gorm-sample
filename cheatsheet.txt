@@ -3,6 +3,10 @@
 - godotenv
 - gin
 - gorm
+- jwt
+- go-redis
+- testify
+- crypto
 
 // run compile daemon
 CompileDaemon -command="./gin-gorm-sample"
