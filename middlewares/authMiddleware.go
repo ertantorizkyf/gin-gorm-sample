@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-	"log"
 	"strings"
 
 	"github.com/ertantorizkyf/gin-gorm-sample/helpers"
@@ -10,27 +9,24 @@ import (
 
 func AuthorizeUser(c *gin.Context) {
 	authHeader := c.Request.Header.Get("Authorization")
+	if authHeader == "" {
+		RejectAuthorization(c)
+
+		return
+	}
+
 	authToken := strings.Split(authHeader, " ")
+	if len(authToken) < 2 {
+		RejectAuthorization(c)
 
-	if authHeader == "" || len(authToken) < 2 {
-		message := "USER UNAUTHORIZED!"
-		log.Printf("[ERR] %s", message)
-		c.JSON(401, gin.H{
-			"message": message,
-		})
-
-		c.Abort()
+		return
 	}
 
 	err := helpers.VerifyToken(authToken[1])
 	if err != nil {
-		message := "USER UNAUTHORIZED!"
-		log.Printf("[ERR] %s", message)
-		c.JSON(401, gin.H{
-			"message": message,
-		})
+		RejectAuthorization(c)
 
-		c.Abort()
+		return
 	}
 
 	c.Next()
