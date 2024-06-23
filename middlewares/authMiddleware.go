@@ -15,7 +15,7 @@ func AuthorizeUser(c *gin.Context) {
 	if authHeader == "" || len(authToken) < 2 {
 		message := "USER UNAUTHORIZED!"
 		log.Printf("[ERR] %s", message)
-		c.JSON(500, gin.H{
+		c.JSON(401, gin.H{
 			"message": message,
 		})
 
@@ -26,7 +26,7 @@ func AuthorizeUser(c *gin.Context) {
 	if err != nil {
 		message := "USER UNAUTHORIZED!"
 		log.Printf("[ERR] %s", message)
-		c.JSON(500, gin.H{
+		c.JSON(401, gin.H{
 			"message": message,
 		})
 
