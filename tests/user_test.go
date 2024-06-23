@@ -24,3 +24,15 @@ func TestSampleMiddlewareImplSuccess(t *testing.T) {
 	json.Unmarshal(w.Body.Bytes(), &respBody)
 	assert.Equal(t, "HELLO WORLD!", respBody["data"])
 }
+
+func TestSampleMiddlewareImplUnauthorized(t *testing.T) {
+	InitTestEnv()
+	router := InitTestRouter()
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/user/sample-middleware-impl", nil)
+
+	router.ServeHTTP(w, req)
+
+	assert.Equal(t, 401, w.Code)
+}
