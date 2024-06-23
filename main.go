@@ -1,12 +1,8 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/ertantorizkyf/gin-gorm-sample/controllers"
 	"github.com/ertantorizkyf/gin-gorm-sample/initializers"
-	"github.com/ertantorizkyf/gin-gorm-sample/middlewares"
-	"github.com/gin-gonic/gin"
+	"github.com/ertantorizkyf/gin-gorm-sample/routers"
 )
 
 func init() {
@@ -15,43 +11,10 @@ func init() {
 }
 
 func main() {
-	router := gin.Default()
-
-	router.NoRoute(func(c *gin.Context) {
-		errMethod := c.Request.Method
-		errPath := c.Request.URL.Path
-		errMessage := fmt.Sprintf("Path [%s] %s not found!", errMethod, errPath)
-
-		c.JSON(404, gin.H{"message": errMessage})
-	})
-
-	articlesRouter := router.Group("/articles")
-	{
-		articlesRouter.GET("", controllers.ArticleIndex)
-		articlesRouter.GET(":id", controllers.ArticleDetail)
-		articlesRouter.POST("", controllers.ArticleCreate)
-		articlesRouter.PUT(":id", controllers.ArticleUpdate)
-		articlesRouter.DELETE(":id", controllers.ArticleDelete)
-
-		articlesJsonRouter := articlesRouter.Group("/json")
-		{
-			articlesJsonRouter.GET("/structured", controllers.ArticleJsonStructuredIndex)
-			articlesJsonRouter.GET("/unstructured", controllers.ArticleJsonUnstructuredIndex)
-		}
-	}
-
-	redisRouter := router.Group("/redis")
-	{
-		redisRouter.GET("", controllers.RedisGet)
-		redisRouter.POST("", controllers.RedisSet)
-	}
-
-	userRouter := router.Group("/user")
-	{
-		userRouter.POST("/register", controllers.Register)
-		userRouter.POST("/login", controllers.Login)
-		userRouter.GET("/sample-middleware-impl", middlewares.AuthorizeUser, controllers.SampleMiddlewareImpl)
-	}
+	router := routers.InitRouter()
+	router = routers.InitArticleRouter(router)
+	router = routers.InitRedisRouter(router)
+	router = routers.InitUserRouter(router)
 
 	router.Run()
 }
