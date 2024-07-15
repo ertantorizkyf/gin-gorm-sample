@@ -15,6 +15,7 @@ func main() {
 	router = routers.InitArticleRouter(router)
 	router = routers.InitRedisRouter(router)
 	router = routers.InitUserRouter(router)
+	router = routers.InitExcelRouter(router)
 
 	router.Run()
 }
