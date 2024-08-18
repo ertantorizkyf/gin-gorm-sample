@@ -1,7 +1,11 @@
 package usecases
 
 import (
+	"encoding/json"
+	"os"
+
 	"github.com/ertantorizkyf/gin-gorm-sample/dtos"
+	"github.com/ertantorizkyf/gin-gorm-sample/helpers"
 	"github.com/ertantorizkyf/gin-gorm-sample/models"
 	"github.com/ertantorizkyf/gin-gorm-sample/repositories"
 )
@@ -44,4 +48,26 @@ func (uc *ArticleUseCase) DeleteArticle(id int) error {
 	err := uc.articleRepository.DeleteArticle(id)
 
 	return err
+}
+
+func (uc *ArticleUseCase) GetStructuredArticleJson() []dtos.Article {
+	var articles []dtos.Article
+
+	filePath := os.Getenv("ARTICLE_JSON_PATH")
+	jsonRes := helpers.ReadJson(filePath)
+
+	json.Unmarshal(jsonRes, &articles)
+
+	return articles
+}
+
+func (uc *ArticleUseCase) GetUnstructuredArticleJson() []map[string]interface{} {
+	var articles []map[string]interface{}
+
+	filePath := os.Getenv("ARTICLE_JSON_PATH")
+	jsonRes := helpers.ReadJson(filePath)
+
+	json.Unmarshal([]byte(jsonRes), &articles)
+
+	return articles
 }

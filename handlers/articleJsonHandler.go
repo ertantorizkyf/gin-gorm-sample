@@ -1,34 +1,30 @@
 package handlers
 
 import (
-	"encoding/json"
-	"os"
-
-	"github.com/ertantorizkyf/gin-gorm-sample/dtos"
-	"github.com/ertantorizkyf/gin-gorm-sample/helpers"
+	"github.com/ertantorizkyf/gin-gorm-sample/usecases"
 	"github.com/gin-gonic/gin"
 )
 
-func ArticleJsonStructuredIndex(c *gin.Context) {
-	var articles []dtos.Article
+type ArticleJsonHandler struct {
+	articleUsecase usecases.ArticleUseCase
+}
 
-	filePath := os.Getenv("ARTICLE_JSON_PATH")
-	jsonRes := helpers.ReadJson(filePath)
+func NewArticleJsonHandler(articleUsecase usecases.ArticleUseCase) ArticleJsonHandler {
+	return ArticleJsonHandler{
+		articleUsecase: articleUsecase,
+	}
+}
 
-	json.Unmarshal(jsonRes, &articles)
+func (h *ArticleJsonHandler) ArticleJsonStructuredIndex(c *gin.Context) {
+	articles := h.articleUsecase.GetStructuredArticleJson()
 
 	c.JSON(200, gin.H{
 		"data": articles,
 	})
 }
 
-func ArticleJsonUnstructuredIndex(c *gin.Context) {
-	var articles []map[string]interface{}
-
-	filePath := os.Getenv("ARTICLE_JSON_PATH")
-	jsonRes := helpers.ReadJson(filePath)
-
-	json.Unmarshal([]byte(jsonRes), &articles)
+func (h *ArticleJsonHandler) ArticleJsonUnstructuredIndex(c *gin.Context) {
+	articles := h.articleUsecase.GetUnstructuredArticleJson()
 
 	c.JSON(200, gin.H{
 		"data": articles,

@@ -11,6 +11,7 @@ func InitArticleRouter(router *gin.Engine) *gin.Engine {
 	articleRepository := repositories.NewArticleRepository()
 	articleUsecase := usecases.NewArticleUsecase(articleRepository)
 	articleHandler := handlers.NewArticleHandler(articleUsecase)
+	articleJsonHandler := handlers.NewArticleJsonHandler(articleUsecase)
 
 	articlesRouter := router.Group("/articles")
 	{
@@ -22,8 +23,8 @@ func InitArticleRouter(router *gin.Engine) *gin.Engine {
 
 		articlesJsonRouter := articlesRouter.Group("/json")
 		{
-			articlesJsonRouter.GET("/structured", handlers.ArticleJsonStructuredIndex)
-			articlesJsonRouter.GET("/unstructured", handlers.ArticleJsonUnstructuredIndex)
+			articlesJsonRouter.GET("/structured", articleJsonHandler.ArticleJsonStructuredIndex)
+			articlesJsonRouter.GET("/unstructured", articleJsonHandler.ArticleJsonUnstructuredIndex)
 		}
 	}
 
