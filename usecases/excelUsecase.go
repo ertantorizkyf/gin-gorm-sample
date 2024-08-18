@@ -6,13 +6,10 @@ import (
 
 	_ "image/png"
 
-	"github.com/ertantorizkyf/gin-gorm-sample/repositories"
 	"github.com/xuri/excelize/v2"
 )
 
-type ExcelUsecase struct {
-	articleRepository repositories.ArticleRepository
-}
+type ExcelUsecase struct{}
 
 func NewExcelUsecase() ExcelUsecase {
 	return ExcelUsecase{}
