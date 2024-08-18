@@ -7,3 +7,7 @@ type Article struct {
 	Title   string
 	Content string
 }
+
+func (Article) TableName() string {
+	return "articles"
+}

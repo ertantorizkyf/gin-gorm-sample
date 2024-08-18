@@ -5,3 +5,8 @@ type Article struct {
 	Title   string `json:"title"`
 	Content string `json:"content"`
 }
+
+type ArticleReq struct {
+	Title   string `json:"title"`
+	Content string `json:"content"`
+}

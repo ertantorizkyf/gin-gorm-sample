@@ -1,19 +1,24 @@
 package routers
 
 import (
-	"github.com/ertantorizkyf/gin-gorm-sample/controllers"
 	"github.com/ertantorizkyf/gin-gorm-sample/handlers"
+	"github.com/ertantorizkyf/gin-gorm-sample/repositories"
+	"github.com/ertantorizkyf/gin-gorm-sample/usecases"
 	"github.com/gin-gonic/gin"
 )
 
 func InitArticleRouter(router *gin.Engine) *gin.Engine {
+	articleRepository := repositories.NewArticleRepository()
+	articleUsecase := usecases.NewArticleUsecase(articleRepository)
+	articleHandler := handlers.NewArticleHandler(articleUsecase)
+
 	articlesRouter := router.Group("/articles")
 	{
-		articlesRouter.GET("", controllers.ArticleIndex)
-		articlesRouter.GET(":id", controllers.ArticleDetail)
-		articlesRouter.POST("", controllers.ArticleCreate)
-		articlesRouter.PUT(":id", controllers.ArticleUpdate)
-		articlesRouter.DELETE(":id", controllers.ArticleDelete)
+		articlesRouter.GET("", articleHandler.ArticleIndex)
+		articlesRouter.GET(":id", articleHandler.ArticleDetail)
+		articlesRouter.POST("", articleHandler.ArticleCreate)
+		articlesRouter.PUT(":id", articleHandler.ArticleUpdate)
+		articlesRouter.DELETE(":id", articleHandler.ArticleDelete)
 
 		articlesJsonRouter := articlesRouter.Group("/json")
 		{
