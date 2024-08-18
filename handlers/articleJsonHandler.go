@@ -1,16 +1,16 @@
-package controllers
+package handlers
 
 import (
 	"encoding/json"
 	"os"
 
+	"github.com/ertantorizkyf/gin-gorm-sample/dtos"
 	"github.com/ertantorizkyf/gin-gorm-sample/helpers"
-	"github.com/ertantorizkyf/gin-gorm-sample/structs"
 	"github.com/gin-gonic/gin"
 )
 
 func ArticleJsonStructuredIndex(c *gin.Context) {
-	var articles []structs.Article
+	var articles []dtos.Article
 
 	filePath := os.Getenv("ARTICLE_JSON_PATH")
 	jsonRes := helpers.ReadJson(filePath)

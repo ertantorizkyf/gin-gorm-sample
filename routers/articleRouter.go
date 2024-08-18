@@ -2,6 +2,7 @@ package routers
 
 import (
 	"github.com/ertantorizkyf/gin-gorm-sample/controllers"
+	"github.com/ertantorizkyf/gin-gorm-sample/handlers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,8 +17,8 @@ func InitArticleRouter(router *gin.Engine) *gin.Engine {
 
 		articlesJsonRouter := articlesRouter.Group("/json")
 		{
-			articlesJsonRouter.GET("/structured", controllers.ArticleJsonStructuredIndex)
-			articlesJsonRouter.GET("/unstructured", controllers.ArticleJsonUnstructuredIndex)
+			articlesJsonRouter.GET("/structured", handlers.ArticleJsonStructuredIndex)
+			articlesJsonRouter.GET("/unstructured", handlers.ArticleJsonUnstructuredIndex)
 		}
 	}
 
