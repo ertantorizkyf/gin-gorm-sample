@@ -6,10 +6,10 @@ import (
 )
 
 type ArticleJsonHandler struct {
-	articleUsecase usecases.ArticleUseCase
+	articleUsecase usecases.ArticleUsecase
 }
 
-func NewArticleJsonHandler(articleUsecase usecases.ArticleUseCase) ArticleJsonHandler {
+func NewArticleJsonHandler(articleUsecase usecases.ArticleUsecase) ArticleJsonHandler {
 	return ArticleJsonHandler{
 		articleUsecase: articleUsecase,
 	}

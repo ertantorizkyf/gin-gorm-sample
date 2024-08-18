@@ -10,10 +10,10 @@ import (
 )
 
 type ArticleHandler struct {
-	articleUsecase usecases.ArticleUseCase
+	articleUsecase usecases.ArticleUsecase
 }
 
-func NewArticleHandler(articleUsecase usecases.ArticleUseCase) ArticleHandler {
+func NewArticleHandler(articleUsecase usecases.ArticleUsecase) ArticleHandler {
 	return ArticleHandler{
 		articleUsecase: articleUsecase,
 	}

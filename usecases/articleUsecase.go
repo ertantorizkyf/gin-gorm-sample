@@ -10,47 +10,47 @@ import (
 	"github.com/ertantorizkyf/gin-gorm-sample/repositories"
 )
 
-type ArticleUseCase struct {
+type ArticleUsecase struct {
 	articleRepository repositories.ArticleRepository
 }
 
-func NewArticleUsecase(articleRepository repositories.ArticleRepository) ArticleUseCase {
-	return ArticleUseCase{
+func NewArticleUsecase(articleRepository repositories.ArticleRepository) ArticleUsecase {
+	return ArticleUsecase{
 		articleRepository: articleRepository,
 	}
 }
 
-func (uc *ArticleUseCase) GetArticleList() []models.Article {
+func (uc *ArticleUsecase) GetArticleList() []models.Article {
 	articles := uc.articleRepository.GetArticleList()
 
 	return articles
 }
 
-func (uc *ArticleUseCase) GetArticleById(id int) models.Article {
+func (uc *ArticleUsecase) GetArticleById(id int) models.Article {
 	article := uc.articleRepository.GetArticleByID(id)
 
 	return article
 }
 
-func (uc *ArticleUseCase) CreateArticle(req dtos.ArticleReq) error {
+func (uc *ArticleUsecase) CreateArticle(req dtos.ArticleReq) error {
 	err := uc.articleRepository.CreateArticle(req)
 
 	return err
 }
 
-func (uc *ArticleUseCase) UpdateArticle(id int, req dtos.ArticleReq) (models.Article, error) {
+func (uc *ArticleUsecase) UpdateArticle(id int, req dtos.ArticleReq) (models.Article, error) {
 	article, err := uc.articleRepository.UpdateArticle(id, req)
 
 	return article, err
 }
 
-func (uc *ArticleUseCase) DeleteArticle(id int) error {
+func (uc *ArticleUsecase) DeleteArticle(id int) error {
 	err := uc.articleRepository.DeleteArticle(id)
 
 	return err
 }
 
-func (uc *ArticleUseCase) GetStructuredArticleJson() []dtos.Article {
+func (uc *ArticleUsecase) GetStructuredArticleJson() []dtos.Article {
 	var articles []dtos.Article
 
 	filePath := os.Getenv("ARTICLE_JSON_PATH")
@@ -61,7 +61,7 @@ func (uc *ArticleUseCase) GetStructuredArticleJson() []dtos.Article {
 	return articles
 }
 
-func (uc *ArticleUseCase) GetUnstructuredArticleJson() []map[string]interface{} {
+func (uc *ArticleUsecase) GetUnstructuredArticleJson() []map[string]interface{} {
 	var articles []map[string]interface{}
 
 	filePath := os.Getenv("ARTICLE_JSON_PATH")
