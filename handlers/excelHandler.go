@@ -5,10 +5,28 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GenerateExcelGet(c *gin.Context) {
-	usecases.GenerateSampleExcel()
+type ExcelHandler struct {
+	excelUsecase usecases.ExcelUsecase
+}
+
+func NewExcelHandler(excelUsecase usecases.ExcelUsecase) ExcelHandler {
+	return ExcelHandler{
+		excelUsecase: excelUsecase,
+	}
+}
+
+func (h *ExcelHandler) GenerateExcelGet(c *gin.Context) {
+	err := h.excelUsecase.GenerateSampleExcel()
+
+	if err != nil {
+		c.JSON(500, gin.H{
+			"message": err,
+		})
+
+		return
+	}
 
 	c.JSON(200, gin.H{
-		"data": "OK",
+		"data": "Excel file generated successfully",
 	})
 }

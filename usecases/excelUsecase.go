@@ -6,10 +6,19 @@ import (
 
 	_ "image/png"
 
+	"github.com/ertantorizkyf/gin-gorm-sample/repositories"
 	"github.com/xuri/excelize/v2"
 )
 
-func GenerateSampleExcel() {
+type ExcelUsecase struct {
+	articleRepository repositories.ArticleRepository
+}
+
+func NewExcelUsecase() ExcelUsecase {
+	return ExcelUsecase{}
+}
+
+func (uc *ExcelUsecase) GenerateSampleExcel() error {
 	xlsx := excelize.NewFile()
 
 	savePath := "./sample.xlsx"
@@ -26,6 +35,7 @@ func GenerateSampleExcel() {
 	})
 	if err != nil {
 		fmt.Println("ERROR", err.Error())
+		return err
 	}
 	xlsx.SetCellStyle(sheetName, "A1", "M7", headerStyle)
 
@@ -48,12 +58,14 @@ func GenerateSampleExcel() {
 	})
 	if err != nil {
 		fmt.Println("ERROR", err.Error())
+		return err
 	}
 	xlsx.MergeCell(sheetName, "A2", "M4")
 	xlsx.SetCellStr(sheetName, "A2", title)
 	xlsx.SetCellStyle(sheetName, "A2", "A2", titleStyle)
 	if err := xlsx.AddPicture(sheetName, "B1", "./assets/logo.png", &excelize.GraphicOptions{ScaleX: 0.1, ScaleY: 0.1}); err != nil {
 		fmt.Println(err)
+		return err
 	}
 
 	// SET DOWNLOAD DATE
@@ -197,5 +209,8 @@ func GenerateSampleExcel() {
 	err = xlsx.SaveAs(savePath)
 	if err != nil {
 		fmt.Println(err)
+		return err
 	}
+
+	return nil
 }
