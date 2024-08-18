@@ -9,11 +9,18 @@ import (
 	"github.com/SebastiaanKlippert/go-wkhtmltopdf"
 )
 
-func GenerateSamplePDF() {
+type PdfUsecase struct{}
+
+func NewPdfUsecase() PdfUsecase {
+	return PdfUsecase{}
+}
+
+func (uc *PdfUsecase) GenerateSamplePDF() error {
 	// Create new PDF generator
 	pdfg, err := wkhtmltopdf.NewPDFGenerator()
 	if err != nil {
 		fmt.Println(err)
+		return err
 	}
 
 	// Set global options
@@ -28,13 +35,16 @@ func GenerateSamplePDF() {
 	err = pdfg.Create()
 	if err != nil {
 		fmt.Println(err)
+		return err
 	}
 
 	// Write buffer contents to file on disk
 	err = pdfg.WriteFile("./sample.pdf")
 	if err != nil {
 		fmt.Println(err)
+		return err
 	}
 
 	fmt.Println("PDF Generated Successfully")
+	return nil
 }

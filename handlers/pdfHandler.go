@@ -5,10 +5,27 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GeneratePDFGet(c *gin.Context) {
-	usecases.GenerateSamplePDF()
+type PdfHandler struct {
+	pdfUsecase usecases.PdfUsecase
+}
+
+func NewPdfHandler(pdfUsecase usecases.PdfUsecase) PdfHandler {
+	return PdfHandler{
+		pdfUsecase: pdfUsecase,
+	}
+}
+
+func (h *PdfHandler) GeneratePDFGet(c *gin.Context) {
+	err := h.pdfUsecase.GenerateSamplePDF()
+	if err != nil {
+		c.JSON(500, gin.H{
+			"message": err,
+		})
+
+		return
+	}
 
 	c.JSON(200, gin.H{
-		"data": "OK",
+		"data": "PDF generated successfully",
 	})
 }
