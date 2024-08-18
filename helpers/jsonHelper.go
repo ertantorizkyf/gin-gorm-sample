@@ -9,7 +9,7 @@ import (
 func ReadJson(filePath string) []byte {
 	jsonFile, err := os.Open(filePath)
 	if err != nil {
-		log.Fatal("[ERR] Failed to read json file")
+		log.Printf("[ERR] Failed to read json file")
 	}
 
 	defer jsonFile.Close()

@@ -11,7 +11,7 @@ func LoadEnvVars() {
 	err := godotenv.Load()
 
 	if err != nil {
-		log.Fatal("[ERR] Error loading .env file")
+		log.Printf("[ERR] Error loading .env file")
 	} else {
 		log.Printf("[INFO] .env file loaded")
 	}

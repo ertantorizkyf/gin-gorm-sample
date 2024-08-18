@@ -19,7 +19,7 @@ func RedisGet(c *gin.Context) {
 		log.Printf("[ERR] Redis data of key \"%s\" not found", key)
 		redisVal = ""
 	} else if err != nil {
-		log.Fatal("[ERR] Something went wrong while fetching redis key")
+		log.Printf("[ERR] Something went wrong while fetching redis key")
 	}
 
 	c.JSON(200, gin.H{
@@ -39,7 +39,7 @@ func RedisSet(c *gin.Context) {
 
 	err := rdb.Set(c, body.Key, body.Value, 0).Err()
 	if err != nil {
-		log.Fatal("[ERR] Something went wrong while setting redis key-value pair")
+		log.Printf("[ERR] Something went wrong while setting redis key-value pair")
 	}
 
 	message := fmt.Sprintf("Successfully setting %s to %s", body.Value, body.Key)

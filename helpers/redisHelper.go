@@ -11,7 +11,7 @@ func RedisClient() *redis.Client {
 	url := os.Getenv("REDIS_URL")
 	opts, err := redis.ParseURL(url)
 	if err != nil {
-		log.Fatal("[ERR] Failed to connect to Redis")
+		log.Printf("[ERR] Failed to connect to Redis")
 	} else {
 		log.Printf("[INFO] Connected to Redis")
 	}
