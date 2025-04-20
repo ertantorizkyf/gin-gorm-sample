@@ -1,0 +1,22 @@
+@startuml ERD
+
+entity User {
+  id: int (PK)
+	full_name: string
+	email: string
+  password: string
+  created_at: timestamp
+  updated_at: timestamp
+  deleted_at: timestamp
+}
+
+entity Article {
+  id: int (PK)
+	title: string
+	content: string
+  created_at: timestamp
+  updated_at: timestamp
+  deleted_at: timestamp
+}
+
+@enduml

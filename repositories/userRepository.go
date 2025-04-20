@@ -8,7 +8,6 @@ import (
 )
 
 type UserRepository interface {
-	GetArticleList() []models.Article
 	GetUserByEmail(email string) models.User
 	RegisterUser(req dtos.RegisterReq) error
 }
@@ -21,13 +20,6 @@ func NewUserRepository() UserRepository {
 	return &userRepository{
 		db: initializers.DB,
 	}
-}
-
-func (r *userRepository) GetArticleList() []models.Article {
-	var articles []models.Article
-	r.db.Find(&articles)
-
-	return articles
 }
 
 func (r *userRepository) GetUserByEmail(email string) models.User {
